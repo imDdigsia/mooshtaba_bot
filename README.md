@@ -22,7 +22,7 @@ Persian-speaking Telegram AI bot running on Cloudflare Workers with mood engine,
 - Cloudflare account (free tier works)
 - Telegram Bot Token (from [@BotFather](https://t.me/BotFather))
 - **[prox.us.ci](https://ai.prox.us.ci/sign-up?aff=35Fw) API key** — Sign up using our referral link to support the project
-- **Join our community** — You must have an account at [dc.hhhl.cc](https://dc.hhhl.cc)
+-You must have an account at [dc.hhhl.cc](https://dc.hhhl.cc)
 
 ## Quick Deploy
 
