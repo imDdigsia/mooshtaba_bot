@@ -22,6 +22,12 @@ function Write-Header {
     Write-Host "  ║     Mooshtaba Bot Deployment Wizard      ║" -ForegroundColor Cyan
     Write-Host "  ╚══════════════════════════════════════════╝" -ForegroundColor Cyan
     Write-Host ""
+    Write-Host "  ┌─────────────────────────────────────────────────────────┐" -ForegroundColor Yellow
+    Write-Host "  │  💡 Support us! Use our referral link when signing up  │" -ForegroundColor Yellow
+    Write-Host "  │  🔗 https://ai.prox.us.ci/sign-up?aff=35Fw            │" -ForegroundColor Yellow
+    Write-Host "  │  💬 Join our community: https://dc.hhhl.cc            │" -ForegroundColor Yellow
+    Write-Host "  └─────────────────────────────────────────────────────────┘" -ForegroundColor Yellow
+    Write-Host ""
 }
 
 function Write-Step {
@@ -115,6 +121,18 @@ function Set-Secrets {
     if ($secrets["TOKENROUTER_API_KEY"] -and $secrets["TOKENROUTER_API_KEY"] -ne "your_api_key_here") {
         Write-OK "TOKENROUTER_API_KEY already set"
     } else {
+        Write-Host ""
+        Write-Host "  ┌─────────────────────────────────────────────────────────┐" -ForegroundColor Magenta
+        Write-Host "  │  🚀 Get your API key from prox.us.ci                   │" -ForegroundColor Magenta
+        Write-Host "  │  Sign up using our referral link to support the project │" -ForegroundColor Magenta
+        Write-Host "  └─────────────────────────────────────────────────────────┘" -ForegroundColor Magenta
+        Write-Host ""
+        $openBrowser = Read-Host "  Open signup page in browser? (Y/n)"
+        if ($openBrowser -ne "n") {
+            Start-Process "https://ai.prox.us.ci/sign-up?aff=35Fw"
+            Write-OK "Opened signup page in browser"
+        }
+        Write-Host ""
         $key = Read-Host "  Enter TOKENROUTER_API_KEY (from prox.us.ci)"
         if ($key) { $secrets["TOKENROUTER_API_KEY"] = $key }
     }
@@ -271,6 +289,14 @@ Write-Host ""
 Write-Host "  ╔══════════════════════════════════════════╗" -ForegroundColor Green
 Write-Host "  ║          Deployment Complete!             ║" -ForegroundColor Green
 Write-Host "  ╚══════════════════════════════════════════╝" -ForegroundColor Green
+Write-Host ""
+Write-Host "  ┌─────────────────────────────────────────────────────────┐" -ForegroundColor Magenta
+Write-Host "  │  🎉 Thanks for deploying Mooshtaba Bot!                │" -ForegroundColor Magenta
+Write-Host "  │  📢 Spread the word - share our referral link:         │" -ForegroundColor Magenta
+Write-Host "  │  🔗 https://ai.prox.us.ci/sign-up?aff=35Fw            │" -ForegroundColor Magenta
+Write-Host "  │  💬 Join our community for support & updates:          │" -ForegroundColor Magenta
+Write-Host "  │  🔗 https://dc.hhhl.cc                                │" -ForegroundColor Magenta
+Write-Host "  └─────────────────────────────────────────────────────────┘" -ForegroundColor Magenta
 Write-Host ""
 Write-Host "  Bot URL:     https://mooshtaba-bot-v2.xlegenda443.workers.dev" -ForegroundColor Cyan
 Write-Host "  Health:      https://mooshtaba-bot-v2.xlegenda443.workers.dev/health" -ForegroundColor Cyan
