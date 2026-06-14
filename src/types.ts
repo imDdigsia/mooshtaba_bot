@@ -201,7 +201,8 @@ export type MoodName =
   | "impressed"
   | "suspicious"
   | "nostalgic"
-  | "dramatic";
+  | "dramatic"
+  | "trump";
 
 export interface MoodState {
   mood: MoodName;

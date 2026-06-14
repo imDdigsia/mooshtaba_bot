@@ -52,6 +52,8 @@ function emojiForMood(mood: MoodName): string[] {
       return ["🧐", "🔍"];
     case "impressed":
       return ["🤯", "👏", "🙌"];
+    case "trump":
+      return ["🇺🇸", "🏆", "📢", "💰", "🔥", "⭐"];
   }
 }
 

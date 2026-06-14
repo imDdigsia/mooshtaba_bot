@@ -114,6 +114,7 @@ const MOOD_KEYBOARD: InlineKeyboardButton[][] = [
    { text: "🤔 suspicious", callback_data: "mood:suspicious" }],
   [{ text: "😢 nostalgic", callback_data: "mood:nostalgic" },
    { text: "🎭 dramatic", callback_data: "mood:dramatic" }],
+  [{ text: "🇺🇸 trump", callback_data: "mood:trump" }],
   [{ text: "🔄 رفرش", callback_data: "cmd:mood" },
    { text: "🔙 بازگشت", callback_data: "cmd:main" }],
 ];

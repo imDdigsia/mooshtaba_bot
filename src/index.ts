@@ -346,9 +346,11 @@ async function handleUpdate(
     const addressedToBot = isPrivate || isCommandForBot || detection.addressed;
 
     if (addressedToBot) {
+      const isChannelPost = msg.from === undefined && chat.type === "channel";
+      const effectiveUserId = isChannelPost ? (cfg.adminIds[0] ?? -1) : (msg.from?.id ?? -1);
       const handled = await handleCommand(
         { cfg, env, analytics, memory, mood, settings },
-        { chatId: chat.id, userId: msg.from?.id ?? -1, command, rest, isPrivate },
+        { chatId: chat.id, userId: effectiveUserId, command, rest, isPrivate },
       ).catch((e) => {
         log.error("command_failed", { err: e.message });
         return false;
