@@ -1,0 +1,48 @@
+name = "mooshtaba-bot-v2"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# ---- Plain (non-secret) variables ----
+[vars]
+# Telegram
+TELEGRAM_API_BASE = "https://api.telegram.org"
+# OpenAI-compatible provider
+TOKENROUTER_BASE = "https://api.prox.us.ci/v1"
+MODEL = "MiniMax-M3"
+
+# Comma-separated Telegram user IDs allowed to run admin commands
+ADMIN_IDS = "5077142734"
+# When "true", only users in ADMIN_IDS can trigger the bot. Messages from
+# anyone else are silently dropped (no memory, no analytics, no engagement,
+# no reply). Useful while testing or for private single-user bots.
+ADMIN_ONLY = "true"
+# Comma-separated chat IDs the bot actively engages with. Empty = engage everywhere.
+ALLOWED_CHAT_IDS = "-1002001401895,-1003776147322,5077142734"
+# Optional: a chat ID where the bot should mirror its channel-post replies
+# (useful when the "channel" is a Telegram channel with a linked discussion group).
+MIRROR_CHAT_ID = ""
+
+# Logging
+LOG_LEVEL = "info" # trace | debug | info | warn | error
+
+# Personality
+BOT_NICKNAME = "موشتبی"
+BOT_LANG_PRIMARY = "fa"
+TIMEZONE = "Asia/Tehran"
+
+# ---- Secrets (set via `wrangler secret put` or .dev.vars) ----
+# TELEGRAM_BOT_TOKEN
+# TOKENROUTER_API_KEY
+# TELEGRAM_WEBHOOK_SECRET
+# SETUP_SECRET
+
+# ---- D1 Database ----
+# Created with `wrangler d1 create mooshtaba-db`
+[[d1_databases]]
+binding = "DB"
+database_name = "mooshtaba-db"
+database_id = "418fd0d7-f99b-49db-994c-36e7b4d3c4e5"
+
+[observability]
+enabled = true
