@@ -12,13 +12,13 @@ TOKENROUTER_BASE = "https://api.prox.us.ci/v1"
 MODEL = "gpt-5.4"
 
 # Comma-separated Telegram user IDs allowed to run admin commands
-ADMIN_IDS = "5077142734"
+ADMIN_IDS = ""
 # When "true", only users in ADMIN_IDS can trigger the bot. Messages from
 # anyone else are silently dropped (no memory, no analytics, no engagement,
 # no reply). Useful while testing or for private single-user bots.
 ADMIN_ONLY = "true"
 # Comma-separated chat IDs the bot actively engages with. Empty = engage everywhere.
-ALLOWED_CHAT_IDS = "-1002001401895,-1003776147322,5077142734"
+ALLOWED_CHAT_IDS = ""
 # Optional: a chat ID where the bot should mirror its channel-post replies
 # (useful when the "channel" is a Telegram channel with a linked discussion group).
 MIRROR_CHAT_ID = ""
