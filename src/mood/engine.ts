@@ -18,7 +18,7 @@ import { createLogger } from "../utils/logger.js";
 import { getHourInTz } from "../config.js";
 import { getMood, putMood, getActivity, putActivity } from "../db/d1.js";
 
-const MIN_HOLD_MS = 10 * 60 * 1000; // never re-roll sooner than 10 minutes
+const MIN_HOLD_MS = 60 * 60 * 1000; // never re-roll sooner than 60 minutes
 const RECENT_ACTIVITY_WINDOW_MS = 10 * 60 * 1000;
 
 function defaultMoodForHour(hour: number): MoodName {
@@ -37,7 +37,7 @@ function weightedPick(exclude?: MoodName, timezone?: string): MoodName {
   for (const m of MOOD_ORDER) {
     counts[m] = 1;
     if (m === preferred) counts[m] += 2;
-    if (Math.random() < 0.15) counts[m] += 1;
+    if (Math.random() < 0.05) counts[m] += 1;
     if (m === exclude) counts[m] *= 0.15;
   }
   const total = Object.values(counts).reduce((a, b) => a + b, 0);
@@ -117,18 +117,18 @@ export class MoodEngine {
     const hourMood = defaultMoodForHour(getHourInTz(this.timezone));
     weights.set(hourMood, (weights.get(hourMood) ?? 1) + 2);
 
-    // Activity influence
+    // Activity influence — subtle, not dominant
     const recent = activity.count;
     if (recent >= 20) {
-      weights.set("excited", (weights.get("excited") ?? 1) + 3);
-      weights.set("chaotic", (weights.get("chaotic") ?? 1) + 2);
+      weights.set("excited", (weights.get("excited") ?? 1) + 1);
+      weights.set("chaotic", (weights.get("chaotic") ?? 1) + 0.5);
     } else if (recent <= 2) {
-      weights.set("sleepy", (weights.get("sleepy") ?? 1) + 2);
-      weights.set("nostalgic", (weights.get("nostalgic") ?? 1) + 1);
+      weights.set("sleepy", (weights.get("sleepy") ?? 1) + 1);
+      weights.set("nostalgic", (weights.get("nostalgic") ?? 1) + 0.5);
     }
 
-    // Inertia: keep current mood more likely
-    weights.set(cur.mood, (weights.get(cur.mood) ?? 1) + 1);
+    // Strong inertia: keep current mood much more likely
+    weights.set(cur.mood, (weights.get(cur.mood) ?? 1) + 5);
 
     const total = Array.from(weights.values()).reduce((a, b) => a + b, 0);
     let r = Math.random() * total;

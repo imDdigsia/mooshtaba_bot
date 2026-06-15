@@ -77,23 +77,24 @@ export function decideEngagement(cfg: Config, ctx: EngagementContext): Engagemen
 
   const mood = MOODS[ctx.mood];
 
-  // Base probability of *some* engagement
-  let p = 0.18;
-  p += (mood.verbosity - 0.5) * 0.4; // -0.2..+0.2
-  p += (ctx.intensity - 0.5) * 0.15; // mood intensity
-  if (ctx.hasMedia) p += 0.15;
-  if (ctx.isForward) p += 0.07;
-  if (ctx.recentActivity > 30) p -= 0.1; // too noisy -> step back
-  if (ctx.recentActivity < 4 && ctx.chatType !== "channel") p += 0.08; // quiet -> chime in
-  if (mood.name === "sleepy") p -= 0.1;
-  if (mood.name === "chaotic" || mood.name === "excited") p += 0.1;
+  // Base probability of *some* engagement — higher for channels
+  let p = 0.40;
+  p += (mood.verbosity - 0.5) * 0.3; // -0.15..+0.15
+  p += (ctx.intensity - 0.5) * 0.1; // mood intensity
+  if (ctx.hasMedia) p += 0.10;
+  if (ctx.isForward) p += 0.05;
+  if (ctx.recentActivity > 30) p -= 0.08; // too noisy -> step back
+  if (ctx.recentActivity < 4) p += 0.08; // quiet -> chime in
+  if (ctx.chatType === "channel") p += 0.10; // channels get extra engagement
+  if (mood.name === "sleepy") p -= 0.05;
+  if (mood.name === "chaotic" || mood.name === "excited") p += 0.05;
 
-  p = clamp(p, 0.02, 0.95);
+  p = clamp(p, 0.05, 0.95);
 
   const roll = Math.random();
   if (roll > p) {
     // Sometimes *react* even if we don't reply (to feel present)
-    if (Math.random() < 0.35) {
+    if (Math.random() < 0.20) {
       return {
         kind: "react",
         emojis: [pickRandom(emojiForMood(mood.name)) ?? "👀"],
@@ -103,14 +104,14 @@ export function decideEngagement(cfg: Config, ctx: EngagementContext): Engagemen
     return { kind: "ignore", reason: `p=${p.toFixed(2)} roll=${roll.toFixed(2)}` };
   }
 
-  // Decide reply vs. react
-  if (Math.random() < 0.25) {
+  // Decide reply vs. react — strongly prefer full reply
+  if (Math.random() < 0.12) {
     return {
       kind: "react",
       emojis: [pickRandom(emojiForMood(mood.name)) ?? "👀"],
       reason: "lucky react",
     };
   }
-  const short = Math.random() < mood.verbosity * 0.6 ? "short" : "full";
+  const short = Math.random() < mood.verbosity * 0.4 ? "short" : "full";
   return { kind: "reply", mode: short, reason: `p=${p.toFixed(2)}` };
 }

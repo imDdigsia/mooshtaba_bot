@@ -458,6 +458,8 @@ async function handleUpdate(
     eventNotes.push(`لینک پیوست شده: ${norm.urls[0]} — اگه مرتبطه، با fetch_link اطلاعاتش رو بگیر و نظر شخصی بده.`);
   }
 
+  const trumpTriggered = !!text && /trump|ترامپ/i.test(text);
+
   const systemPrompt = buildSystemPrompt({
     cfg,
     mood: curMood,
@@ -465,6 +467,7 @@ async function handleUpdate(
     chat: { id: chat.id, type: chat.type, title: chat.title, username: chat.username },
     ...(maybeJoke ? { maybeReferenceJoke: maybeJoke } : {}),
     eventNote: eventNotes.join(" "),
+    trumpTriggered,
   });
 
   const userMsg = await buildUserMessageWithMedia(cfg, msg, norm);

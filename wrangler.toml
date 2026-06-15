@@ -9,7 +9,7 @@ compatibility_flags = ["nodejs_compat"]
 TELEGRAM_API_BASE = "https://api.telegram.org"
 # OpenAI-compatible provider
 TOKENROUTER_BASE = "https://api.prox.us.ci/v1"
-MODEL = "MiniMax-M3"
+MODEL = "gpt-5.4"
 
 # Comma-separated Telegram user IDs allowed to run admin commands
 ADMIN_IDS = "5077142734"
